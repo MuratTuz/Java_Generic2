@@ -9,6 +9,7 @@ public class PairTest {
 		testOrderedPairEquals();
 		testUnorderedPairEquals();
 		testInterPairEquals();
+		testUnorderedPairCompare();
 	}
 	
 	private static void testOrderedPairGetters() {
@@ -72,5 +73,17 @@ public class PairTest {
 	
 	private static void check(String message, boolean condition) {
 		System.out.println(message + (condition ? " PASSED" : " FAILED"));
+	}
+
+	private static void testUnorderedPairCompare() {
+		OrderedPair a = new OrderedPair(1, 2);
+		OrderedPair b = new OrderedPair(1, 2);
+		OrderedPair c = new OrderedPair(2, 1);
+
+		System.out.println(c.compareTo(a));
+		System.out.println(a.compareTo(c));
+		System.out.println(a.compareTo(b));
+
+
 	}
 }

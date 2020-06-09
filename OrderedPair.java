@@ -1,11 +1,11 @@
 
 package generics.Aufgabe4;
 
-public class OrderedPair implements Pair {
-	private final Object first;
-	private final Object second;
+public class OrderedPair<T> implements Pair, Comparable<OrderedPair<T>>{
+	private final T first;
+	private final T second;
 	
-	public OrderedPair(Object first, Object second) {
+	public OrderedPair(T first, T second) {
 		if (first == null || second == null) {
 			throw new IllegalArgumentException("null argument");
 		}
@@ -13,13 +13,13 @@ public class OrderedPair implements Pair {
 		this.second = second;
 	}
 
-	@Override
-	public Object getFirst() {
+
+	public T getFirst() {
 		return first;
 	}
 
-	@Override
-	public Object getSecond() {
+
+	public T getSecond() {
 		return second;
 	}
 
@@ -33,17 +33,18 @@ public class OrderedPair implements Pair {
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object objO) {
+		T obj = (T) objO;
 		if (this == obj) {
 			return true;
 		}
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
-		OrderedPair other = (OrderedPair) obj;
+		OrderedPair<T> other = (OrderedPair<T>) obj;
 		if (first == null) {
 			if (other.first != null) {
 				return false;
@@ -64,5 +65,17 @@ public class OrderedPair implements Pair {
 	@Override
 	public OrderedPair clone() {
 		return new OrderedPair(first, second);
+	}
+
+	@Override
+	public int compareTo(OrderedPair<T> other) {
+		OrderedPair<Integer> otherObject = (OrderedPair<Integer>) other;
+		OrderedPair<Integer> thisObject = this.clone();
+		if (thisObject.first > otherObject.first) return 1;
+		else if (thisObject.first < otherObject.first) return -1;
+		else if (thisObject.second > otherObject.second) return 1;
+		else if (thisObject.second < otherObject.second) return -1;
+
+		return 0;
 	}
 }
